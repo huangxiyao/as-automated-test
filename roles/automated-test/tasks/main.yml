@@ -1,0 +1,21 @@
+---
+# This playbook is for Address Doctor automated test.
+  - name: Copy the su file to the user's home dir
+    copy: src=su.sh dest=~/ mode="a=rwx" force
+    su: no
+
+  - name: Download the argument's template files -> /opt/casfw
+    template: src=automated-test-functions.sh dest={{ casfw_home }} mode=0755 owner={{ useraccount }} group={{ usergroup }} force
+
+  - name: Execute PRO ReST service log which from Austin server
+    action: command bash {{ casfw_home }}/automated-test-functions.sh testProLogFromAustinServer
+
+  - name: Execute PRO ReST service log which from Houston server
+    action: command bash {{ casfw_home }}/automated-test-functions.sh testProLogFromHoustonServer
+
+  - name: Final Cleanup
+    action: command bash {{ casfw_home }}/automated-test-functions.sh finalCleanup
+
+  - name: Remove the su file from the user's home dir
+    shell: cd ~/; find -maxdepth 1 -type f -name "su.sh" | xargs rm
+    su: no

@@ -1,0 +1,24 @@
+---
+# This playbook for Address Doctor automated test.
+- hosts: automated_test
+  gather_facts: no
+  serial: 1
+  su: yes
+  su_user: casfw
+  vars:
+    useraccount: casfw
+    usergroup: @@usergroup@@
+    casfw_home: /opt/casfw
+    shell_script: @@shell_script@@
+    pro_log_path: @@pro_log_path@@
+    test_date: @@test_date@@
+    hp_company: @@hp_company@@
+    ad_env: @@ad_env@@
+    ad_proxy: @@ad_proxy@@
+    log_date1: @@log_date1@@
+    log_date2: @@log_date2@@
+    log_date3: @@log_date3@@
+    log_date4: @@log_date4@@
+    ad_env_hostname: @@ad_env_hostname@@
+  roles:
+  - automated-test
